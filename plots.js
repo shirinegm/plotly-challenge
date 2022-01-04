@@ -59,6 +59,17 @@ function InitDashboard()
                 .property("value", sampleId);
         });
 
+        // Define sampleId to be the first option in the drop down
+        let sampleId = sampleNames[0];
+
+        // Call function to display Bar Chart
+        drawBarChart(sampleId);
+
+        // Call function to display Bubble Chart
+        drawBubbleChart(sampleId);
+
+        // Call function to display Demographic Info
+        popDemogData(sampleId);
 
     });
 }
