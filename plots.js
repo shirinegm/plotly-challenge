@@ -2,6 +2,39 @@
 // Verify the file is loading
 console.log("plots.js loaded!");
 
+// Define function to draw Bar Chart
+function drawBarChart(sampleId) {
+    console.log(`drawBarChart(${sampleId})`);
+}
+
+// Define function to draw Bubble Chart
+function drawBubbleChart(sampleId) {
+    console.log(`drawBubbleChart(${sampleId})`);
+}
+
+// Define function to populate Demographic Data
+function popDemogData(sampleId) {
+    console.log(`popDemogData(${sampleId})`);
+}
+
+// Set up Event handler
+function optionChanged(id) {
+
+    // Log that the function is called and for which id
+    console.log(`optionChanged(${id})`);
+
+    // Call function to display Bar Chart
+    drawBarChart(id);
+
+    // Call function to display Bubble Chart
+    drawBubbleChart(id);
+
+    // Call function to display Demographic Info
+    popDemogData(id);
+}
+
+
+
 // Initialize the Dashboard
 function InitDashboard()
 {
@@ -24,7 +57,6 @@ function InitDashboard()
             selector.append("option")
                 .text(sampleId)
                 .property("value", sampleId);
-
         });
 
 
