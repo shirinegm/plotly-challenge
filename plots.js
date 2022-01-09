@@ -147,29 +147,55 @@ function drawGaugeChart(sampleId) {
 
         // Get handles for all the data necessary to draw the chart
         let wfreq = result.wfreq;
-
+        console.log(`For sample ${sampleId}, washing is ${wfreq}`);
 
         // Define the gauge data traces
         let gaugeData = {
-            domain: { x: [0, 1], y: [0, 1] },
+            gauge: {
+                axis: { 
+                    range: [0, 9], 
+                    tickwidth: 1, 
+                    tickcolor: "darkblue" 
+                },
+                steps: [
+                    { range: [0, 1], color: "PowderBlue" },
+                    { range: [1, 2], color: "LightBlue" },
+                    { range: [2, 3], color: "SkyBlue" },
+                    { range: [3, 4], color: "LightSkyBlue" },
+                    { range: [4, 5], color: "DeepSkyBlue" },
+                    { range: [5, 6], color: "DodgerBlue" },
+                    { range: [6, 7], color: "CornflowerBlue" },
+                    { range: [7, 8], color: "RoyalBlue" },
+                    { range: [8, 9], color: "DarkBlue" },
+                  ],
+                bar: { color: "green" },
+                threshold: {
+                    line: { color: "red", width: 4 },
+                    thickness: 1,
+                    value: wfreq
+                  },
+
+            },
+            
             value: wfreq,
             title: { text: "Belly Button Washing Frequency" },
             type: "indicator",
             mode: "gauge"
-        }
+            
+        };
 
         // Add the trace into an array
         let gaugeArray = [gaugeData];
 
         // Add a layout definition
-        // let barLayout = {
-        //     title: "Top 10 Bacteria Cultures by Sample",
-        //     margin: { t:100, l: 150}
-
-        // }
+        var gaugeLayout = {
+            width: 500,
+            height: 400,
+            margin: { t: 25, r: 25, l: 25, b: 25 },
+          };
 
         // Call Plotly on the trace array
-        Plotly.newPlot("gauge", gaugeArray);
+        Plotly.newPlot("gauge", gaugeArray, gaugeLayout);
     });
 }
 
@@ -188,6 +214,11 @@ function optionChanged(id) {
 
     // Call function to display Demographic Info
     popDemogData(id);
+
+    // Call function to display Gauge Chart
+    drawGaugeChart(id);
+
+
 }
 
 
