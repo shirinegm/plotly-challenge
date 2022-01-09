@@ -100,18 +100,34 @@ function drawBubbleChart(sampleId) {
 function popDemogData(sampleId) {
     console.log(`popDemogData(${sampleId})`);
 
-    // Grab the element to add data to by id
-    let panel = d3.select("#sample-metadata");
-    console.log(panel);
+    //Read the data
+    d3.json("samples.json").then(data => {
 
-    // Empty the panel
-    panel.html("");
+        let metadata = data.metadata;
 
-    // Create a Unordered list with all relevant data
-    let list = panel.append("ul");
 
-    let item = list.append("li");
-    item.text(sampleId);
+        // Get only the result matching what was passed to the function
+        let resultArray = metadata.filter(o => o.id.toString() === sampleId);
+        let result = resultArray[0];
+
+        // Grab the element to add data to by id
+        let panel = d3.select("#sample-metadata");
+
+        // Empty the panel
+        panel.html("");
+
+        // Create a Unordered list with all relevant data
+        let list = panel.append("ul");
+
+        // Add a list item for each metadata point
+        Object.entries(result).forEach(([key, value]) => {
+            let item = list.append("li");
+            item.text(`${key}: ${value}`);
+        });
+
+    });
+
+    
 
 
 }
