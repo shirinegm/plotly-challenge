@@ -64,10 +64,8 @@ function drawBubbleChart(sampleId) {
         let otu_labels = result.otu_labels;
         let sample_values = result.sample_values;
 
-        // Map out Sample Ids to show as labels on the Y axis
-        let yticks = otu_ids.slice(0, 10).map(otuId => `OTU ${otuId}`).reverse();
 
-        // Define the bar data traces
+        // Define the bubble chart data traces
         let bubbleData = {
             x: otu_ids,
             y: sample_values,
@@ -101,6 +99,21 @@ function drawBubbleChart(sampleId) {
 // Define function to populate Demographic Data
 function popDemogData(sampleId) {
     console.log(`popDemogData(${sampleId})`);
+
+    // Grab the element to add data to by id
+    let panel = d3.select("#sample-metadata");
+    console.log(panel);
+
+    // Empty the panel
+    panel.html("");
+
+    // Create a Unordered list with all relevant data
+    let list = panel.append("ul");
+
+    let item = list.append("li");
+    item.text(sampleId);
+
+
 }
 
 // Set up Event handler
