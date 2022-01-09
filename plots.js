@@ -132,6 +132,48 @@ function popDemogData(sampleId) {
 
 }
 
+// Define function to draw Gauge Chart
+function drawGaugeChart(sampleId) {
+    console.log(`drawGaugeChart(${sampleId})`);
+
+    // Read the data
+    d3.json("samples.json").then(data => {
+
+        let metadata = data.metadata;
+
+        // Get only the result matching what was passed to the function
+        let resultArray = metadata.filter(o => o.id.toString() === sampleId);
+        let result = resultArray[0];
+
+        // Get handles for all the data necessary to draw the chart
+        let wfreq = result.wfreq;
+
+
+        // Define the gauge data traces
+        let gaugeData = {
+            domain: { x: [0, 1], y: [0, 1] },
+            value: wfreq,
+            title: { text: "Belly Button Washing Frequency" },
+            type: "indicator",
+            mode: "gauge"
+        }
+
+        // Add the trace into an array
+        let gaugeArray = [gaugeData];
+
+        // Add a layout definition
+        // let barLayout = {
+        //     title: "Top 10 Bacteria Cultures by Sample",
+        //     margin: { t:100, l: 150}
+
+        // }
+
+        // Call Plotly on the trace array
+        Plotly.newPlot("gauge", gaugeArray);
+    });
+}
+
+
 // Set up Event handler
 function optionChanged(id) {
 
@@ -185,6 +227,9 @@ function InitDashboard()
 
         // Call function to display Demographic Info
         popDemogData(sampleId);
+
+        // Call function to display Gauge Chart
+        drawGaugeChart(sampleId);
 
     });
 }
